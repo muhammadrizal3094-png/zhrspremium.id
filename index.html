@@ -622,6 +622,9 @@
           <button id="resetAllDataBtn" type="button" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 transition">
             Reset Default
           </button>
+          <button id="logoutAdminBtn" type="button" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white transition">
+            Logout
+          </button>
           <button id="closeAdminPanelBtn" type="button" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-white transition">
             Tutup
           </button>
@@ -1384,10 +1387,7 @@
 
     // Admin Modal Controls
     function openAdminAccess() {
-      if (isAdminUnlocked) {
-        openAdminPanel();
-        return;
-      }
+      isAdminUnlocked = false;
       document.getElementById('adminPasswordInput').value = '';
       const modal = document.getElementById('adminLoginModal');
       modal.classList.remove('hidden');
@@ -1402,6 +1402,10 @@
     }
 
     function openAdminPanel() {
+      if (!isAdminUnlocked) {
+        openAdminAccess();
+        return;
+      }
       syncAdminForms();
       const modal = document.getElementById('adminPanelModal');
       modal.classList.remove('hidden');
@@ -1412,6 +1416,13 @@
       const modal = document.getElementById('adminPanelModal');
       modal.classList.add('hidden');
       modal.classList.remove('flex');
+      isAdminUnlocked = false;
+    }
+
+    function logoutAdmin() {
+      closeAdminPanel();
+      activeAdminTab = 'brand';
+      showToast('Anda telah logout dari Panel Admin.');
     }
 
     function switchAdminTab(tabName) {
@@ -1869,6 +1880,9 @@
       }
       if (e.key === 'Escape') {
         closeSideMenu();
+        if (!document.getElementById('adminPanelModal').classList.contains('hidden')) {
+          logoutAdmin();
+        }
       }
     });
 
@@ -1884,6 +1898,7 @@
     });
     document.getElementById('closeAdminLoginBtn').addEventListener('click', closeAdminLogin);
     document.getElementById('closeAdminPanelBtn').addEventListener('click', closeAdminPanel);
+    document.getElementById('logoutAdminBtn').addEventListener('click', logoutAdmin);
 
     document.getElementById('adminLoginForm').addEventListener('submit', e => {
       e.preventDefault();
