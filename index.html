@@ -11,12 +11,12 @@
       theme: {
         extend: {
           colors: {
-            slatebg: '#0b1220',
-            cardbg: '#111a2e',
-            cardhover: '#16223b',
-            line: '#1e2c47',
-            accent: '#22c55e',
-            cyanaccent: '#06b6d4'
+            slatebg: 'rgba(248, 250, 252, 0.20)',
+            cardbg: 'rgba(255, 255, 255, 0.20)',
+            cardhover: 'rgba(241, 245, 249, 0.24)',
+            line: 'rgba(255, 255, 255, 0.34)',
+            accent: '#f59e0b',
+            cyanaccent: '#0ea5e9'
           }
         }
       }
@@ -25,34 +25,350 @@
   <style>
     * { box-sizing: border-box; }
     body {
-      background-color: #0b1220;
-      color: #e2e8f0;
+      background-color: #dbe5e9;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.28)), url('zhrs-background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #1e293b;
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
     ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: #0b1220; }
-    ::-webkit-scrollbar-thumb { background: #1e2c47; border-radius: 999px; }
-    ::-webkit-scrollbar-thumb:hover { background: #2d4269; }
+    ::-webkit-scrollbar-track { background: #e8eef2; }
+    ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+    .text-white { color: #172033 !important; }
+    .text-slate-200, .text-slate-300 { color: #334155 !important; }
+    .text-slate-400, .text-slate-500 { color: #64748b !important; }
+    .bg-slate-800, .bg-slate-900 { background-color: rgba(226, 232, 240, 0.25) !important; }
+    .bg-slate-700 { background-color: rgba(203, 213, 225, 0.32) !important; }
+    header, footer, #sideMenu, #orderModal > div, #adminLoginModal > div, #adminPanelModal > div {
+      backdrop-filter: blur(5px);
+    }
+    article, section[id], #testimonialGrid > div, #productSalesDashboard > div,
+    #adminProductList > div, #adminSocialList > div, #adminTestimonialList > div {
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.10);
+    }
+    #productGrid article {
+      background-color: #ffffff !important;
+      border-color: rgba(148, 163, 184, 0.55) !important;
+    }
+    #searchInput {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      border: 1px solid #64748b !important;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+    }
+    #searchInput::placeholder {
+      color: #64748b !important;
+      opacity: 1;
+    }
+    #searchInput:focus {
+      border-color: #059669 !important;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+    #bannerBadgeText {
+      background-color: #d1fae5 !important;
+      color: #065f46 !important;
+      border: 1px solid #10b981 !important;
+      box-shadow: 0 2px 8px rgba(6, 95, 70, 0.12);
+    }
+    #orderModal > div {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+    }
+    #orderModal > div,
+    #orderModal > div :not(.bg-emerald-500) {
+      color: #0f172a !important;
+    }
+    #orderModal select,
+    #orderModal input {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      border: 1px solid #94a3b8 !important;
+    }
+    #orderModal input::placeholder {
+      color: #64748b !important;
+      opacity: 1;
+    }
+    #orderModal .wa-send-btn {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+    }
+    #orderModal .wa-send-btn:hover {
+      background-color: #ecfdf5 !important;
+      border-color: #34d399 !important;
+    }
+    #orderModal #closeOrderModalBtn {
+      background-color: #f1f5f9 !important;
+      color: #0f172a !important;
+    }
+    #productGrid article * {
+      color: #0f172a !important;
+    }
+    .product-logo {
+      width: 44px;
+      height: 44px;
+      flex: 0 0 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      box-shadow: 0 6px 16px rgba(63, 48, 0, 0.12);
+      border: 1px solid rgba(63, 48, 0, 0.12);
+    }
+    .logo-netflix { background: #111827; width: 44px; height: 44px; flex-basis: 44px; padding: 5px; overflow: hidden; }
+    .logo-netflix img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
+    .logo-canva { background: #fff; width: 44px; height: 44px; flex-basis: 44px; padding: 4px; overflow: hidden; }
+    .logo-canva img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
+    .logo-capcut { background: #fff; width: 44px; height: 44px; flex-basis: 44px; padding: 3px; overflow: hidden; }
+    .logo-capcut img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
+    .logo-spotify { background: #1ed760; width: 44px; height: 44px; flex-basis: 44px; padding: 4px; overflow: hidden; }
+    .logo-spotify img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
+    .logo-youtube { background: #fff; width: 44px; height: 44px; flex-basis: 44px; padding: 4px; overflow: hidden; }
+    .logo-youtube img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
+    .logo-ai { background: #fff; width: 44px; height: 44px; flex-basis: 44px; padding: 4px; overflow: hidden; }
+    .logo-ai img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
+    #brandLogoMark {
+      width: 52px;
+      height: 52px;
+      padding: 0;
+      overflow: hidden;
+      background: #fff;
+      border: none;
+      border-radius: 12px;
+    }
+    #brandLogoMark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.28);
+    }
+    #adminLoginCard,
+    #adminLoginCard h3,
+    #adminLoginCard p,
+    #adminLoginCard input,
+    #closeAdminLoginBtn {
+      color: #0f172a !important;
+    }
+    #adminLoginCard {
+      background-color: #ffffff !important;
+    }
+    #adminPanelCard,
+    #adminPanelCard * {
+      color: #0f172a !important;
+    }
+    #adminPanelCard {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+    }
+    #adminPanelCard input,
+    #adminPanelCard textarea,
+    #adminPanelCard select {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      border-color: #94a3b8 !important;
+    }
+    #adminPanelCard input::placeholder,
+    #adminPanelCard textarea::placeholder {
+      color: #64748b !important;
+    }
+    #adminPanelCard .rounded-xl,
+    #adminPanelCard .rounded-lg {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+    }
+    #adminTab-products h3 {
+      color: #0f172a !important;
+    }
+    #adminProductList .reset-prod-btn {
+      background-color: #f59e0b !important;
+      color: #ffffff !important;
+      border-color: #d97706 !important;
+    }
+    #adminProductDeleteList .delete-prod-btn {
+      background-color: #dc2626 !important;
+      color: #ffffff !important;
+      border-color: #b91c1c !important;
+    }
+    #saveProductStockBtn {
+      background-color: #10b981 !important;
+      color: #0f172a !important;
+      border-color: #059669 !important;
+    }
+    #testimoni,
+    #testimonialGrid,
+    #testimonialGrid > div,
+    #testiForm,
+    #testiForm input,
+    #testiForm textarea,
+    #testiForm select,
+    #tagFilterBar button {
+      color: #0f172a !important;
+    }
+    #testimoni > div:first-child {
+      background-color: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 16px;
+    }
+    #testimoni #testimonialGrid > div,
+    #testimoni #testiForm {
+      background-color: #ffffff !important;
+    }
+    #testimoni #testiForm input,
+    #testimoni #testiForm textarea,
+    #testimoni #testiForm select {
+      background-color: #ffffff !important;
+      border: 1px solid #64748b !important;
+      border-radius: 12px;
+      color: #0f172a !important;
+    }
+    #testimoni #testiForm input::placeholder,
+    #testimoni #testiForm textarea::placeholder {
+      color: #64748b !important;
+    }
+    #testimoni h2,
+    #testimoni h3,
+    #testimoni p,
+    #testimoni label,
+    #testiFormCard h3,
+    #testiFormCard p,
+    #testiFormCard label {
+      color: #0f172a !important;
+    }
+    #testimonialGrid article,
+    #socialGrid > a {
+      background-color: #ffffff !important;
+      border: 1px solid #cbd5e1 !important;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.10);
+    }
+    #testimonialGrid article * ,
+    #socialGrid > a * {
+      color: #0f172a !important;
+    }
+    #testimonialGrid article .text-cyan-300,
+    #socialGrid > a .text-emerald-400 {
+      color: #0369a1 !important;
+    }
+    #testimonialGrid article .text-emerald-400 {
+      color: #047857 !important;
+    }
+    #tagFilterBar .tag-filter-btn {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      border: 1px solid #cbd5e1 !important;
+    }
+    #tagFilterBar .tag-filter-btn.bg-cyan-400 {
+      background-color: #22d3ee !important;
+      color: #0f172a !important;
+      border-color: #22d3ee !important;
+    }
+    #sosmed > div:first-child {
+      background-color: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 16px;
+    }
+    #adminPanelCard .admin-tab-btn,
+    #adminPanelCard button {
+      background-color: #f1f5f9 !important;
+      border: 1px solid #cbd5e1;
+    }
+    #adminPanelCard .admin-tab-btn.bg-emerald-500,
+    #adminPanelCard button.bg-emerald-500,
+    #adminPanelCard button[type="submit"] {
+      background-color: #10b981 !important;
+      color: #0f172a !important;
+      border-color: #10b981;
+    }
+    #sideMenu {
+      background-color: #111827 !important;
+      border-right-color: #374151;
+    }
+    #sideMenu > div {
+      background-color: #111827;
+      border-bottom-color: #374151;
+    }
+    #sideMenu [data-menu-link],
+    #menuAdminBtn {
+      background-color: #1f2937;
+      border: 1px solid #374151;
+      color: #ffffff !important;
+      font-size: 15px;
+      line-height: 1.3;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-align: left;
+      gap: 12px;
+    }
+    #sideMenu [data-menu-link]:hover,
+    #menuAdminBtn:hover {
+      background-color: #374151;
+      border-color: #64748b;
+      color: #ffffff !important;
+    }
+    #menuCloseBtn {
+      background-color: #1f2937;
+      border: 1px solid #374151;
+      color: #ffffff !important;
+      font-size: 28px;
+      line-height: 28px;
+      font-weight: 800;
+      width: 40px;
+      height: 40px;
+      text-shadow: 0 1px 2px #000;
+    }
+    #sideMenu > div span {
+      color: #ffffff !important;
+      font-size: 17px;
+      font-weight: 800;
+      text-shadow: 0 1px 2px #000;
+    }
+    #sideMenu [data-menu-link] span,
+    #menuAdminBtn span {
+      width: 10px;
+      height: 10px;
+      flex: 0 0 10px;
+    }
+    #sideMenu [data-menu-link],
+    #sideMenu [data-menu-link] *,
+    #menuAdminBtn,
+    #menuAdminBtn *,
+    #sideMenu > div span,
+    #menuCloseBtn {
+      color: #ffffff !important;
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slatebg text-slate-200 selection:bg-emerald-500/30 selection:text-emerald-200">
 
   <!-- Top Navigation -->
   <header class="sticky top-0 z-30 border-b border-line bg-slatebg/90 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-      <a href="#" class="flex items-center gap-3 group min-w-0">
-        <div id="brandLogoMark" class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 text-slate-950 font-extrabold text-lg flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/15">
-          ZP
-        </div>
-        <div class="truncate">
-          <div id="brandNameText" class="font-bold text-white text-base sm:text-lg tracking-tight truncate group-hover:text-emerald-300 transition">
-            Zhrs Project
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <button id="menuToggleBtn" type="button" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="sideMenu" class="w-10 h-10 rounded-xl border border-line bg-cardbg hover:bg-cardhover text-slate-200 flex flex-col items-center justify-center gap-1.5 shrink-0 transition">
+          <span class="block w-5 h-0.5 rounded-full bg-current"></span>
+          <span class="block w-5 h-0.5 rounded-full bg-current"></span>
+          <span class="block w-5 h-0.5 rounded-full bg-current"></span>
+        </button>
+        <a href="#" class="flex items-center gap-3 group min-w-0">
+          <div id="brandLogoMark" class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 text-slate-950 font-extrabold text-lg flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/15">
+            <img src="zhrs-background.png" alt="Logo ZHRS Project" />
           </div>
-          <div id="brandTaglineText" class="text-xs text-slate-400 truncate hidden sm:block">
-            APK & Akun Digital Premium Terpercaya
+          <div class="truncate">
+            <div id="brandNameText" class="font-bold text-white text-base sm:text-lg tracking-tight truncate group-hover:text-emerald-300 transition">
+              Zhrs Project
+            </div>
+            <div id="brandTaglineText" class="text-xs text-slate-400 truncate hidden sm:block">
+              APK & Akun Digital Premium Terpercaya
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
 
       <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
         <a href="#katalog" class="hover:text-emerald-400 transition">Katalog</a>
@@ -72,11 +388,40 @@
     </div>
   </header>
 
+  <!-- Side Navigation -->
+  <div id="menuBackdrop" class="fixed inset-0 z-40 hidden bg-black/60 backdrop-blur-sm"></div>
+  <aside id="sideMenu" aria-label="Menu navigasi" class="fixed top-0 left-0 z-50 h-full w-72 max-w-[85vw] -translate-x-full border-r border-line bg-cardbg shadow-2xl transition-transform duration-200">
+    <div class="h-16 px-4 border-b border-line flex items-center justify-between">
+      <span class="font-bold text-white">Menu Zhrs Project</span>
+      <button id="menuCloseBtn" type="button" aria-label="Tutup menu" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">
+        &times;
+      </button>
+    </div>
+    <nav class="p-3 space-y-1">
+      <a href="#katalog" data-menu-link class="flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-semibold text-slate-200 hover:bg-cardhover hover:text-emerald-300 transition">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        Katalog
+      </a>
+      <a href="#testimoni" data-menu-link class="flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-semibold text-slate-200 hover:bg-cardhover hover:text-emerald-300 transition">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+        Testimoni
+      </a>
+      <a href="#sosmed" data-menu-link class="flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-semibold text-slate-200 hover:bg-cardhover hover:text-emerald-300 transition">
+        <span class="w-2 h-2 rounded-full bg-violet-400"></span>
+        Media Sosial
+      </a>
+      <button id="menuAdminBtn" type="button" class="w-full flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-semibold text-slate-200 hover:bg-emerald-500/10 hover:text-emerald-300 transition">
+        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+        Admin
+      </button>
+    </nav>
+  </aside>
+
   <!-- Main Content -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-14">
 
     <!-- Hero Banner -->
-    <section class="relative overflow-hidden rounded-2xl border border-line bg-gradient-to-br from-cardbg via-[#101c33] to-[#0d1929] p-6 sm:p-10">
+    <section class="relative overflow-hidden rounded-2xl border border-line bg-gradient-to-br from-cardbg via-white to-slate-100 p-6 sm:p-10">
       <div class="max-w-3xl space-y-4">
         <div id="bannerBadgeText" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
           Proses Cepat &amp; Bergaransi
@@ -133,12 +478,22 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         <!-- Testimonial List -->
         <div id="testimonialGrid" class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        <div id="testimonialHistoryPanel" class="hidden lg:col-span-8 rounded-2xl border border-slate-300 bg-white p-4 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 class="text-base font-bold text-slate-950">Riwayat Testimoni</h3>
+              <p id="testimonialHistoryCount" class="text-xs text-slate-600 mt-0.5"></p>
+            </div>
+            <button id="testimonialHistoryToggle" type="button" class="px-4 py-2 rounded-xl text-xs font-semibold bg-cyan-100 hover:bg-cyan-200 text-slate-900 border border-cyan-200 transition"></button>
+          </div>
+          <div id="testimonialHistoryGrid" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </div>
 
-        <!-- Add Testimonial Form (Text Only) -->
-        <div class="lg:col-span-4 rounded-2xl border border-line bg-cardbg p-5 space-y-4">
+        <!-- Add Testimonial Form -->
+        <div id="testiFormCard" class="lg:col-span-4 rounded-2xl border border-slate-300 bg-white p-5 space-y-4">
           <div>
-            <h3 class="text-base font-bold text-white">Tulis Testimoni Pembeli</h3>
-            <p class="text-xs text-slate-400 mt-0.5">Bagikan pengalaman order Anda (teks &amp; #tagar).</p>
+            <h3 class="text-base font-bold text-slate-950">Tulis Testimoni Pembeli</h3>
+            <p class="text-xs text-slate-600 mt-0.5">Bagikan pengalaman order Anda (teks &amp; #tagar).</p>
           </div>
 
           <form id="testiForm" class="space-y-3.5">
@@ -149,7 +504,9 @@
 
             <div>
               <label for="testiProduct" class="block text-xs font-medium text-slate-300 mb-1">Produk yang Dibeli</label>
-              <input id="testiProduct" type="text" required placeholder="Contoh: Netflix Premium UHD" class="w-full px-3.5 py-2 rounded-xl bg-slatebg border border-line text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400" />
+              <select id="testiProduct" required class="w-full px-3.5 py-2 rounded-xl bg-slatebg border border-line text-sm text-white focus:outline-none focus:border-emerald-400">
+                <option value="">Pilih produk</option>
+              </select>
             </div>
 
             <div>
@@ -160,6 +517,13 @@
             <div>
               <label for="testiComment" class="block text-xs font-medium text-slate-300 mb-1">Ulasan</label>
               <textarea id="testiComment" rows="3" required placeholder="Tulis pengalaman transaksi Anda..." class="w-full px-3.5 py-2 rounded-xl bg-slatebg border border-line text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400"></textarea>
+            </div>
+
+            <div>
+              <label for="testiPhoto" class="block text-xs font-medium text-slate-300 mb-1">Foto Testimoni (opsional)</label>
+              <input id="testiPhoto" type="file" accept="image/jpeg,image/png,image/webp" class="w-full px-3.5 py-2 rounded-xl bg-slatebg border border-line text-sm text-white focus:outline-none focus:border-emerald-400" />
+              <p class="text-[11px] text-slate-500 mt-1">Format JPG, PNG, atau WEBP; maksimal 10 MB. Foto akan dikecilkan agar tersimpan di browser ini.</p>
+              <img id="testiPhotoPreview" alt="Pratinjau foto testimoni" class="hidden mt-2 max-h-48 w-full rounded-xl border border-slate-200 object-contain bg-slate-50" />
             </div>
 
             <button type="submit" class="w-full py-2.5 rounded-xl text-sm font-semibold bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition">
@@ -182,17 +546,12 @@
   </main>
 
   <!-- Footer -->
-  <footer class="border-t border-line bg-[#080d18] mt-12">
+  <footer class="border-t border-line bg-white/90 backdrop-blur-md mt-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
       <div>
         &copy; <span id="yearSpan">2026</span> <span id="footerBrandName" class="text-slate-200 font-semibold">Zhrs Project</span>. Seluruh hak cipta dilindungi.
       </div>
-      <div class="flex items-center gap-4">
-        <span>Shortcut Admin: <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-200 border border-line">Ctrl+Shift+A</kbd></span>
-        <button id="footerAdminBtn" type="button" class="text-slate-400 hover:text-emerald-400 underline underline-offset-4 transition">
-          Admin
-        </button>
-      </div>
+      <div class="text-slate-500">Menu tersedia melalui tombol pojok kiri atas.</div>
     </div>
   </footer>
 
@@ -230,16 +589,16 @@
 
   <!-- Admin Login Modal -->
   <div id="adminLoginModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-    <div class="w-full max-w-sm rounded-2xl border border-line bg-cardbg p-6 space-y-4 shadow-2xl">
+    <div id="adminLoginCard" class="w-full max-w-sm rounded-2xl border border-slate-300 bg-white p-6 space-y-4 shadow-2xl">
       <div class="flex items-center justify-between">
-        <h3 class="text-base font-bold text-white">Akses Panel Admin</h3>
-        <button id="closeAdminLoginBtn" type="button" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">
+        <h3 class="text-base font-bold text-slate-950">Akses Panel Admin</h3>
+        <button id="closeAdminLoginBtn" type="button" class="w-8 h-8 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-950 font-bold flex items-center justify-center">
           &times;
         </button>
       </div>
-      <p class="text-xs text-slate-400">Masukkan password admin untuk mengelola katalog, kanal WA, media sosial, dan testimoni.</p>
+      <p class="text-xs text-slate-700">Masukkan password admin untuk mengelola katalog, kanal WA, media sosial, dan testimoni.</p>
       <form id="adminLoginForm" class="space-y-3">
-        <input id="adminPasswordInput" type="password" required placeholder="Password admin" class="w-full px-3.5 py-2.5 rounded-xl bg-slatebg border border-line text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400" />
+        <input id="adminPasswordInput" type="password" required placeholder="Password admin" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-slate-400 text-sm text-slate-950 placeholder-slate-500 focus:outline-none focus:border-emerald-500" />
         <button type="submit" class="w-full py-2.5 rounded-xl text-sm font-semibold bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition">
           Masuk Admin
         </button>
@@ -249,7 +608,7 @@
 
   <!-- Admin Dashboard Modal -->
   <div id="adminPanelModal" class="fixed inset-0 z-50 hidden items-start justify-center bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
-    <div class="w-full max-w-4xl rounded-2xl border border-line bg-cardbg p-6 my-6 space-y-6 shadow-2xl">
+    <div id="adminPanelCard" class="w-full max-w-4xl rounded-2xl border border-line bg-cardbg p-6 my-6 space-y-6 shadow-2xl">
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4">
         <div>
           <span class="text-xs font-semibold text-emerald-400">MODE ADMIN AKTIF</span>
@@ -285,13 +644,18 @@
             <label class="block text-xs font-medium text-slate-300 mb-1">Tagline</label>
             <input id="cfgTagline" type="text" class="w-full px-3.5 py-2 rounded-xl bg-slatebg border border-line text-sm text-white" />
           </div>
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">Status Toko</label>
-            <select id="cfgStoreStatus" class="w-full px-3.5 py-2 rounded-xl bg-slatebg border border-line text-sm text-white">
-              <option value="open">Buka &amp; Aktif</option>
-              <option value="busy">Ramai / Antrean</option>
-              <option value="closed">Tutup Sementara</option>
-            </select>
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-medium text-slate-300 mb-1">Jam Operasional</label>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="cfgOpeningTime" class="block text-[11px] text-slate-500 mb-1">Jam Buka</label>
+                <input id="cfgOpeningTime" type="time" required class="w-full px-3.5 py-2 rounded-xl bg-slatebg border border-line text-sm text-white" />
+              </div>
+              <div>
+                <label for="cfgClosingTime" class="block text-[11px] text-slate-500 mb-1">Jam Tutup</label>
+                <input id="cfgClosingTime" type="time" required class="w-full px-3.5 py-2 rounded-xl bg-slatebg border border-line text-sm text-white" />
+              </div>
+            </div>
           </div>
           <div>
             <label class="block text-xs font-medium text-slate-300 mb-1">Badge Banner</label>
@@ -315,18 +679,55 @@
 
       <!-- Tab 2: Products -->
       <div id="adminTab-products" class="admin-tab-pane hidden space-y-5">
-        <form id="addProductForm" class="rounded-xl border border-line bg-slatebg p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          <input id="prodName" type="text" required placeholder="Nama Produk" class="px-3 py-2 rounded-xl bg-cardbg border border-line text-sm text-white" />
-          <input id="prodCategory" type="text" required placeholder="Kategori (mis. Streaming)" class="px-3 py-2 rounded-xl bg-cardbg border border-line text-sm text-white" />
-          <input id="prodPackage" type="text" required placeholder="Paket (mis. 1 Bulan)" class="px-3 py-2 rounded-xl bg-cardbg border border-line text-sm text-white" />
-          <input id="prodPrice" type="number" required min="0" placeholder="Harga (Rp)" class="px-3 py-2 rounded-xl bg-cardbg border border-line text-sm text-white" />
-          <input id="prodDesc" type="text" placeholder="Deskripsi singkat produk..." class="sm:col-span-2 lg:col-span-3 px-3 py-2 rounded-xl bg-cardbg border border-line text-sm text-white" />
-          <button type="submit" class="px-4 py-2 rounded-xl text-sm font-semibold bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition">
-            + Tambah Produk
-          </button>
-        </form>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+            <div class="text-xs font-semibold text-emerald-300">Total Produk Terjual</div>
+            <div id="totalSoldMetric" class="mt-1 text-2xl font-extrabold text-white">0</div>
+          </div>
+          <div class="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4">
+            <div class="text-xs font-semibold text-cyan-300">Total Stok Tersedia</div>
+            <div id="totalStockMetric" class="mt-1 text-2xl font-extrabold text-white">0</div>
+          </div>
+          <div class="rounded-xl border border-violet-500/30 bg-violet-500/10 p-4">
+            <div class="text-xs font-semibold text-violet-300">Estimasi Hasil Penjualan</div>
+            <div id="totalSalesMetric" class="mt-1 text-2xl font-extrabold text-white">Rp 0</div>
+          </div>
+        </div>
+        <div>
+          <div class="mb-2 text-xs font-semibold text-slate-300">Hasil Penjualan per Produk</div>
+          <div id="productSalesDashboard" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+        </div>
 
-        <div id="adminProductList" class="space-y-2.5"></div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
+          <div class="space-y-3">
+            <h3 class="text-sm font-extrabold text-slate-950">PENAMBAHAN PRODUK</h3>
+            <form id="addProductForm" class="rounded-xl border border-line bg-slatebg p-4 grid grid-cols-1 xl:grid-cols-2 gap-3">
+              <input id="prodName" type="text" required placeholder="Nama Produk" class="px-3 py-2 rounded-xl bg-cardbg border border-line text-sm text-white" />
+              <input id="prodCategory" type="text" required placeholder="Kategori (mis. Streaming)" class="px-3 py-2 rounded-xl bg-cardbg border border-line text-sm text-white" />
+              <input id="prodPackage" type="text" required placeholder="Paket (mis. 1 Bulan)" class="px-3 py-2 rounded-xl bg-cardbg border border-line text-sm text-white" />
+              <input id="prodPrice" type="number" required min="0" placeholder="Harga (Rp)" class="px-3 py-2 rounded-xl bg-cardbg border border-line text-sm text-white" />
+              <input id="prodStock" type="number" required min="0" value="0" placeholder="Stok tersedia" class="px-3 py-2 rounded-xl bg-cardbg border border-line text-sm text-white" />
+              <input id="prodSold" type="number" required min="0" value="0" placeholder="Sudah terjual" class="px-3 py-2 rounded-xl bg-cardbg border border-line text-sm text-white" />
+              <input id="prodDesc" type="text" placeholder="Deskripsi singkat produk..." class="xl:col-span-2 px-3 py-2 rounded-xl bg-cardbg border border-line text-sm text-white" />
+              <button type="submit" class="xl:col-span-2 px-4 py-2 rounded-xl text-sm font-semibold bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition">
+                + Tambah Produk
+              </button>
+            </form>
+          </div>
+
+          <div class="space-y-3">
+            <h3 class="text-sm font-extrabold text-slate-950">PENGHAPUSAN PRODUK</h3>
+            <div id="adminProductDeleteList" class="space-y-2.5 max-h-96 overflow-y-auto pr-1"></div>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-sm font-extrabold text-slate-950">STOK PRODUK</h3>
+          <div id="adminProductList" class="space-y-2.5 max-h-96 overflow-y-auto pr-1"></div>
+          <button id="saveProductStockBtn" type="button" class="w-full px-4 py-2.5 rounded-xl text-sm font-semibold border transition">
+            Simpan Data
+          </button>
+        </div>
       </div>
 
       <!-- Tab 3: 3 WhatsApp Channels -->
@@ -365,7 +766,8 @@
       brand: {
         name: 'Zhrs Project',
         tagline: 'APK & Akun Digital Premium Terpercaya',
-        storeStatus: 'open',
+        openingTime: '08:00',
+        closingTime: '21:00',
         bannerBadge: 'Proses Cepat & Bergaransi',
         bannerTitle: 'Belanja APK & Akun Premium Lebih Praktis di Zhrs Project',
         bannerDesc: 'Pilih produk favorit, tentukan paket atau durasi, lalu order langsung ke salah satu dari 3 Admin WhatsApp aktif.'
@@ -380,8 +782,6 @@
         { id: 'soc_tg', name: 'Telegram', handle: 't.me/zhrsproject', url: 'https://t.me', hidden: false },
         { id: 'soc_tt', name: 'TikTok', handle: '@zhrs.project', url: 'https://tiktok.com', hidden: false },
         { id: 'soc_wa', name: 'Saluran WhatsApp', handle: 'Update Stok & Promo', url: 'https://whatsapp.com', hidden: false },
-        { id: 'soc_dc', name: 'Discord', handle: 'Komunitas Zhrs', url: 'https://discord.com', hidden: false },
-        { id: 'soc_yt', name: 'YouTube', handle: 'Panduan & Info', url: 'https://youtube.com', hidden: false }
       ],
       products: [
         {
@@ -389,6 +789,8 @@
           name: 'Netflix Premium UHD',
           category: 'Streaming',
           desc: 'Kualitas 4K UHD, profil aman, cocok untuk nonton harian.',
+          stock: 25,
+          sold: 42,
           packages: [
             { label: '1 Hari', price: 8000 },
             { label: '7 Hari', price: 22000 },
@@ -401,6 +803,8 @@
           name: 'Canva Pro Team',
           category: 'Desain & Produktivitas',
           desc: 'Akses fitur Pro, penghapus latar belakang, dan ekspor transparan.',
+          stock: 18,
+          sold: 36,
           packages: [
             { label: '1 Bulan', price: 15000 },
             { label: '3 Bulan', price: 35000 },
@@ -412,6 +816,8 @@
           name: 'CapCut Pro',
           category: 'Editing',
           desc: 'Fitur template, efek, dan ekspor resolusi tinggi tanpa watermark.',
+          stock: 20,
+          sold: 29,
           packages: [
             { label: '7 Hari', price: 12000 },
             { label: '1 Bulan', price: 25000 },
@@ -423,6 +829,8 @@
           name: 'Spotify Individual',
           category: 'Musik',
           desc: 'Dengarkan musik bebas iklan dengan kualitas audio jernih.',
+          stock: 22,
+          sold: 33,
           packages: [
             { label: '1 Bulan', price: 20000 },
             { label: '2 Bulan', price: 38000 }
@@ -433,6 +841,8 @@
           name: 'YouTube Premium',
           category: 'Streaming',
           desc: 'Bebas iklan, pemutaran latar belakang, dan YouTube Music.',
+          stock: 15,
+          sold: 27,
           packages: [
             { label: '1 Bulan (Individu)', price: 18000 },
             { label: '1 Bulan (Family)', price: 28000 }
@@ -443,6 +853,8 @@
           name: 'AI Assistant Plus',
           category: 'Desain & Produktivitas',
           desc: 'Akses model pintar dan fitur analisis untuk kerja harian.',
+          stock: 12,
+          sold: 19,
           packages: [
             { label: '7 Hari', price: 30000 },
             { label: '1 Bulan', price: 85000 }
@@ -478,8 +890,18 @@
           ...parsed,
           brand: { ...DEFAULT_STATE.brand, ...(parsed.brand || {}) },
           waChannels: Array.isArray(parsed.waChannels) && parsed.waChannels.length === 3 ? parsed.waChannels : cloneDefault().waChannels,
-          socials: Array.isArray(parsed.socials) && parsed.socials.length ? parsed.socials : cloneDefault().socials,
-          products: Array.isArray(parsed.products) && parsed.products.length ? parsed.products : cloneDefault().products,
+          socials: (Array.isArray(parsed.socials) && parsed.socials.length ? parsed.socials : cloneDefault().socials)
+            .filter(social => !['soc_dc', 'soc_yt'].includes(social.id)),
+          products: Array.isArray(parsed.products) && parsed.products.length
+            ? parsed.products.map(product => {
+                const defaultProduct = cloneDefault().products.find(item => item.id === product.id);
+                return {
+                  ...product,
+                  stock: Math.max(0, Number(product.stock ?? defaultProduct?.stock ?? 0)),
+                  sold: Math.max(0, Number(product.sold ?? defaultProduct?.sold ?? 0))
+                };
+              })
+            : cloneDefault().products,
           tags: Array.isArray(parsed.tags) && parsed.tags.length ? parsed.tags : cloneDefault().tags,
           testimonials: Array.isArray(parsed.testimonials) && parsed.testimonials.length ? parsed.testimonials : cloneDefault().testimonials
         };
@@ -491,6 +913,7 @@
     let state = loadState();
     let activeCategory = 'Semua';
     let activeTag = '#Semua';
+    let isTestimonialHistoryOpen = false;
     let searchQuery = '';
     let isAdminUnlocked = false;
     let activeAdminTab = 'brand';
@@ -499,13 +922,53 @@
     function saveState() {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        return true;
       } catch (_) {
-        // Ignore storage quota errors
+        return false;
       }
     }
 
     function formatRupiah(num) {
       return 'Rp ' + Number(num || 0).toLocaleString('id-ID');
+    }
+
+    async function compressTestimonialPhoto(file) {
+      if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+        throw new Error('Pilih foto berformat JPG, PNG, atau WEBP.');
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        throw new Error('Ukuran foto maksimal 10 MB.');
+      }
+
+      const bitmap = await createImageBitmap(file);
+      const maxDimension = 1200;
+      const scale = Math.min(1, maxDimension / Math.max(bitmap.width, bitmap.height));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+      canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+      const context = canvas.getContext('2d');
+      if (!context) {
+        bitmap.close();
+        throw new Error('Foto tidak dapat diproses di browser ini.');
+      }
+      context.fillStyle = '#ffffff';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+
+      let dataUrl = '';
+      for (let attempt = 0; attempt < 6; attempt += 1) {
+        const quality = Math.max(0.35, 0.82 - attempt * 0.1);
+        dataUrl = canvas.toDataURL('image/jpeg', quality);
+        if (dataUrl.length <= 600000) break;
+        canvas.width = Math.max(1, Math.round(canvas.width * 0.8));
+        canvas.height = Math.max(1, Math.round(canvas.height * 0.8));
+        context.fillStyle = '#ffffff';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+      }
+      bitmap.close();
+      if (dataUrl.length > 600000) throw new Error('Foto terlalu besar untuk disimpan. Coba pilih foto yang lebih kecil.');
+      return dataUrl;
     }
 
     function escapeHtml(str) {
@@ -515,6 +978,29 @@
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
+    }
+
+    function getProductLogo(prod) {
+      const name = String(prod?.name || '').toLowerCase();
+      if (prod?.id === 'p_nf' || name.includes('netflix')) {
+        return '<span class="product-logo logo-netflix" aria-label="Logo Netflix"><img src="netflix-logo.png" alt="Netflix" /></span>';
+      }
+      if (prod?.id === 'p_canva' || name.includes('canva')) {
+        return '<span class="product-logo logo-canva" aria-label="Logo Canva"><img src="canva-logo.png" alt="Canva" /></span>';
+      }
+      if (prod?.id === 'p_capcut' || name.includes('capcut')) {
+        return '<span class="product-logo logo-capcut" aria-label="Logo CapCut"><img src="capcut-logo.png" alt="CapCut" /></span>';
+      }
+      if (prod?.id === 'p_spotify' || name.includes('spotify')) {
+        return '<span class="product-logo logo-spotify" aria-label="Logo Spotify"><img src="spotify-logo.png" alt="Spotify" /></span>';
+      }
+      if (prod?.id === 'p_yt' || name.includes('youtube')) {
+        return '<span class="product-logo logo-youtube" aria-label="Logo YouTube"><img src="youtube-logo.png" alt="YouTube" /></span>';
+      }
+      if (prod?.id === 'p_gpt' || name.includes('ai assistant') || name.includes('asisten ai')) {
+        return '<span class="product-logo logo-ai" aria-label="Logo AI Assistant Plus"><img src="chatgpt-logo.png" alt="ChatGPT" /></span>';
+      }
+      return '<span class="product-logo logo-ai" aria-label="Logo produk">P</span>';
     }
 
     function normalizeTag(raw) {
@@ -540,7 +1026,7 @@
 
     function renderBrand() {
       document.title = `${state.brand.name} — APK & Akun Digital Premium`;
-      document.getElementById('brandLogoMark').textContent = getInitials(state.brand.name);
+      document.getElementById('brandLogoMark').innerHTML = '<img src="zhrs-background.png" alt="Logo ZHRS Project" />';
       document.getElementById('brandNameText').textContent = state.brand.name;
       document.getElementById('brandTaglineText').textContent = state.brand.tagline;
       document.getElementById('footerBrandName').textContent = state.brand.name;
@@ -548,16 +1034,29 @@
       document.getElementById('bannerTitleText').textContent = state.brand.bannerTitle;
       document.getElementById('bannerDescText').textContent = state.brand.bannerDesc;
 
+      renderStoreStatus();
+    }
+
+    function renderStoreStatus() {
       const badge = document.getElementById('storeStatusBadge');
-      if (state.brand.storeStatus === 'busy') {
-        badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/30';
-        badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400"></span>Ramai / Antrean';
-      } else if (state.brand.storeStatus === 'closed') {
-        badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-500/15 text-rose-300 border border-rose-500/30';
-        badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-400"></span>Tutup Sementara';
-      } else {
+      const openingTime = state.brand.openingTime || DEFAULT_STATE.brand.openingTime;
+      const closingTime = state.brand.closingTime || DEFAULT_STATE.brand.closingTime;
+      const [openingHour, openingMinute] = openingTime.split(':').map(Number);
+      const [closingHour, closingMinute] = closingTime.split(':').map(Number);
+      const now = new Date();
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      const openingMinutes = openingHour * 60 + openingMinute;
+      const closingMinutes = closingHour * 60 + closingMinute;
+      const isOpen = openingMinutes < closingMinutes
+        ? currentMinutes >= openingMinutes && currentMinutes < closingMinutes
+        : openingMinutes > closingMinutes && (currentMinutes >= openingMinutes || currentMinutes < closingMinutes);
+
+      if (isOpen) {
         badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
         badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>Buka &amp; Aktif';
+      } else {
+        badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-500/15 text-rose-300 border border-rose-500/30';
+        badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-400"></span>Tutup / Closed';
       }
     }
 
@@ -626,8 +1125,19 @@
                 </span>
                 <span class="text-xs font-bold text-emerald-400">${priceLabel}</span>
               </div>
-              <h3 class="text-base font-bold text-white">${escapeHtml(prod.name)}</h3>
+              <div class="flex items-center gap-3">
+                ${getProductLogo(prod)}
+                <h3 class="text-base font-bold text-white">${escapeHtml(prod.name)}</h3>
+              </div>
               <p class="text-xs text-slate-400 leading-relaxed">${escapeHtml(prod.desc || '')}</p>
+              <div class="flex flex-wrap gap-2 pt-1">
+                <span class="text-[11px] px-2.5 py-1 rounded-lg bg-cyan-500/10 text-cyan-300 border border-cyan-500/25">
+                  Stok: ${Math.max(0, Number(prod.stock || 0)).toLocaleString('id-ID')}
+                </span>
+                <span class="text-[11px] px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-300 border border-emerald-500/25">
+                  Terjual: ${Math.max(0, Number(prod.sold || 0)).toLocaleString('id-ID')}
+                </span>
+              </div>
               <div class="flex flex-wrap gap-1.5 pt-1">
                 ${(prod.packages || []).map(pk => `
                   <span class="text-[11px] px-2 py-0.5 rounded-lg bg-slatebg border border-line text-slate-300">
@@ -677,6 +1187,7 @@
       bar.querySelectorAll('.tag-filter-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           activeTag = btn.dataset.tag;
+          isTestimonialHistoryOpen = false;
           renderTags();
           renderTestimonials();
         });
@@ -689,16 +1200,21 @@
         : state.testimonials.filter(t => normalizeTag(t.tag) === activeTag);
 
       const grid = document.getElementById('testimonialGrid');
+      const historyPanel = document.getElementById('testimonialHistoryPanel');
+      const historyGrid = document.getElementById('testimonialHistoryGrid');
+      const historyToggle = document.getElementById('testimonialHistoryToggle');
+      const historyCount = document.getElementById('testimonialHistoryCount');
       if (!list.length) {
         grid.innerHTML = `
           <div class="col-span-full rounded-2xl border border-line bg-cardbg p-8 text-center text-sm text-slate-400">
             Belum ada testimoni untuk tagar ${escapeHtml(activeTag)}.
           </div>
         `;
+        historyPanel.classList.add('hidden');
         return;
       }
 
-      grid.innerHTML = list.map(item => `
+      const renderCards = items => items.map(item => `
         <article class="rounded-2xl border border-line bg-cardbg p-5 flex flex-col justify-between gap-3">
           <div class="space-y-2">
             <div class="flex items-center justify-between gap-2">
@@ -706,16 +1222,62 @@
               <span class="text-xs font-semibold text-cyan-300">${escapeHtml(normalizeTag(item.tag))}</span>
             </div>
             <div class="text-xs font-semibold text-emerald-400">${escapeHtml(item.product)}</div>
+            ${item.photo ? `<img src="${escapeHtml(item.photo)}" alt="Foto testimoni ${escapeHtml(item.author)}" class="max-h-64 w-full rounded-xl border border-slate-200 object-contain bg-slate-50" loading="lazy" />` : ''}
             <p class="text-sm text-slate-300 leading-relaxed">"${escapeHtml(item.comment)}"</p>
           </div>
           <div class="text-[11px] text-slate-500 pt-1">${escapeHtml(item.time || 'Baru saja')}</div>
         </article>
       `).join('');
+      const recent = list.slice(0, 10);
+      const history = list.slice(10);
+
+      grid.innerHTML = renderCards(recent);
+      if (!history.length) {
+        historyPanel.classList.add('hidden');
+        historyGrid.innerHTML = '';
+        isTestimonialHistoryOpen = false;
+        return;
+      }
+
+      historyPanel.classList.remove('hidden');
+      historyCount.textContent = `${history.length} testimoni lebih lama`;
+      historyGrid.innerHTML = renderCards(history);
+      historyGrid.classList.toggle('hidden', !isTestimonialHistoryOpen);
+      historyToggle.textContent = isTestimonialHistoryOpen ? 'Tutup Riwayat' : 'Lihat Riwayat';
+      historyToggle.setAttribute('aria-expanded', String(isTestimonialHistoryOpen));
+      historyToggle.onclick = () => {
+        isTestimonialHistoryOpen = !isTestimonialHistoryOpen;
+        historyGrid.classList.toggle('hidden', !isTestimonialHistoryOpen);
+        historyToggle.textContent = isTestimonialHistoryOpen ? 'Tutup Riwayat' : 'Lihat Riwayat';
+        historyToggle.setAttribute('aria-expanded', String(isTestimonialHistoryOpen));
+      };
+    }
+
+    function renderTestimonialProductOptions() {
+      const select = document.getElementById('testiProduct');
+      const selectedProduct = select.value;
+      const availableProducts = [...state.products].sort((a, b) => a.name.localeCompare(b.name, 'id'));
+      select.innerHTML = `
+        <option value="">${availableProducts.length ? 'Pilih produk' : 'Belum ada produk tersedia'}</option>
+        ${availableProducts.map(product => `<option value="${escapeHtml(product.name)}">${escapeHtml(product.name)}</option>`).join('')}
+      `;
+      if (availableProducts.some(product => product.name === selectedProduct)) {
+        select.value = selectedProduct;
+      }
+      select.disabled = availableProducts.length === 0;
     }
 
     function renderSocials() {
       const visible = state.socials.filter(s => !s.hidden);
       const grid = document.getElementById('socialGrid');
+      const socialIcons = {
+        soc_ig: 'instagram',
+        soc_wa: 'whatsapp',
+        soc_tg: 'telegram',
+        soc_dc: 'discord',
+        soc_tt: 'tiktok',
+        soc_yt: 'youtube'
+      };
 
       if (!visible.length) {
         grid.innerHTML = `
@@ -728,9 +1290,14 @@
 
       grid.innerHTML = visible.map(soc => `
         <a href="${escapeHtml(soc.url || '#')}" target="_blank" rel="noopener noreferrer" class="rounded-2xl border border-line bg-cardbg hover:bg-cardhover p-4 flex items-center justify-between gap-3 transition group">
-          <div class="min-w-0">
-            <div class="text-sm font-bold text-white group-hover:text-emerald-300 transition truncate">${escapeHtml(soc.name)}</div>
-            <div class="text-xs text-slate-400 truncate mt-0.5">${escapeHtml(soc.handle || '')}</div>
+          <div class="flex min-w-0 items-center gap-3">
+            <span class="w-11 h-11 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center shrink-0">
+              <img src="social-${socialIcons[soc.id] || 'instagram'}.svg" alt="${escapeHtml(soc.name)}" class="w-7 h-7 object-contain" loading="lazy" />
+            </span>
+            <div class="min-w-0">
+              <div class="text-sm font-bold text-white group-hover:text-emerald-300 transition truncate">${escapeHtml(soc.name)}</div>
+              <div class="text-xs text-slate-400 truncate mt-0.5">${escapeHtml(soc.handle || '')}</div>
+            </div>
           </div>
           <span class="text-xs font-semibold text-emerald-400 shrink-0">Buka &rarr;</span>
         </a>
@@ -853,7 +1420,8 @@
     function syncAdminForms() {
       document.getElementById('cfgBrandName').value = state.brand.name;
       document.getElementById('cfgTagline').value = state.brand.tagline;
-      document.getElementById('cfgStoreStatus').value = state.brand.storeStatus;
+      document.getElementById('cfgOpeningTime').value = state.brand.openingTime || DEFAULT_STATE.brand.openingTime;
+      document.getElementById('cfgClosingTime').value = state.brand.closingTime || DEFAULT_STATE.brand.closingTime;
       document.getElementById('cfgBannerBadge').value = state.brand.bannerBadge;
       document.getElementById('cfgBannerTitle').value = state.brand.bannerTitle;
       document.getElementById('cfgBannerDesc').value = state.brand.bannerDesc;
@@ -866,33 +1434,152 @@
     }
 
     function renderAdminProducts() {
+      renderTestimonialProductOptions();
       const list = document.getElementById('adminProductList');
-      list.innerHTML = state.products.map(prod => {
-        const firstPkg = prod.packages?.[0] || { label: '1 Bulan', price: 0 };
+      const totalSold = state.products.reduce((sum, prod) => sum + Math.max(0, Number(prod.sold || 0)), 0);
+      const totalStock = state.products.reduce((sum, prod) => sum + Math.max(0, Number(prod.stock || 0)), 0);
+      const totalSales = state.products.reduce((sum, prod) => {
+        const packagePrice = Math.min(...((prod.packages || []).map(pkg => Number(pkg.price || 0)).filter(price => price >= 0)));
+        const basePrice = Number.isFinite(packagePrice) ? packagePrice : 0;
+        return sum + (Math.max(0, Number(prod.sold || 0)) * basePrice);
+      }, 0);
+      document.getElementById('totalSoldMetric').textContent = totalSold.toLocaleString('id-ID');
+      document.getElementById('totalStockMetric').textContent = totalStock.toLocaleString('id-ID');
+      document.getElementById('totalSalesMetric').textContent = formatRupiah(totalSales);
+
+      const salesDashboard = document.getElementById('productSalesDashboard');
+      salesDashboard.innerHTML = state.products.map(prod => {
+        const sold = Math.max(0, Number(prod.sold || 0));
+        const stock = Math.max(0, Number(prod.stock || 0));
+        const packagePrice = Math.min(...((prod.packages || []).map(pkg => Number(pkg.price || 0)).filter(price => price >= 0)));
+        const basePrice = Number.isFinite(packagePrice) ? packagePrice : 0;
         return `
-          <div class="rounded-xl border border-line bg-slatebg p-3.5 flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <div class="text-sm font-bold text-white">${escapeHtml(prod.name)} <span class="text-xs font-normal text-cyan-300">(${escapeHtml(prod.category)})</span></div>
-              <div class="text-xs text-slate-400">Paket awal: ${escapeHtml(firstPkg.label)} — ${formatRupiah(firstPkg.price)} · ${(prod.packages || []).length} paket</div>
+          <div class="rounded-xl border border-line bg-slatebg p-3.5">
+            <div class="text-sm font-bold text-white truncate">${escapeHtml(prod.name)}</div>
+            <div class="mt-2 grid grid-cols-2 gap-2">
+              <div class="rounded-lg bg-emerald-500/10 border border-emerald-500/20 p-2.5">
+                <div class="text-[10px] text-emerald-300">Terjual</div>
+                <div class="mt-0.5 text-lg font-bold text-white">${sold.toLocaleString('id-ID')}</div>
+              </div>
+              <div class="rounded-lg bg-cyan-500/10 border border-cyan-500/20 p-2.5">
+                <div class="text-[10px] text-cyan-300">Sisa stok</div>
+                <div class="mt-0.5 text-lg font-bold text-white">${stock.toLocaleString('id-ID')}</div>
+              </div>
             </div>
-            <button type="button" data-del-prod="${escapeHtml(prod.id)}" class="del-prod-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30">
-              Hapus
-            </button>
+            <div class="mt-2 text-xs text-violet-300">Estimasi: ${formatRupiah(sold * basePrice)}</div>
           </div>
         `;
       }).join('');
 
-      list.querySelectorAll('.del-prod-btn').forEach(btn => {
+      list.innerHTML = state.products.map(prod => {
+        const firstPkg = prod.packages?.[0] || { label: '1 Bulan', price: 0 };
+        return `
+          <div class="rounded-xl border border-line bg-slatebg p-3.5 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              ${getProductLogo(prod)}
+              <div>
+                <div class="text-sm font-bold text-white">${escapeHtml(prod.name)} <span class="text-xs font-normal text-cyan-300">(${escapeHtml(prod.category)})</span></div>
+                <div class="text-xs text-slate-400">Paket awal: ${escapeHtml(firstPkg.label)} — ${formatRupiah(firstPkg.price)} · ${(prod.packages || []).length} paket</div>
+              </div>
+            </div>
+            <div class="flex flex-wrap items-end gap-2">
+              <label class="text-[11px] text-slate-400">Terjual
+                <input type="number" min="0" step="1" data-sold-prod="${escapeHtml(prod.id)}" data-before-sold="${Math.max(0, Number(prod.sold || 0))}" data-before-stock="${Math.max(0, Number(prod.stock || 0))}" value="${Math.max(0, Number(prod.sold || 0))}" class="sold-prod-input mt-1 block w-24 px-2.5 py-1.5 rounded-lg bg-cardbg border border-line text-xs text-white" />
+              </label>
+              <label class="text-[11px] text-slate-400">Stok
+                <input type="number" min="0" step="1" data-stock-prod="${escapeHtml(prod.id)}" value="${Math.max(0, Number(prod.stock || 0))}" class="stock-prod-input mt-1 block w-24 px-2.5 py-1.5 rounded-lg bg-cardbg border border-line text-xs text-white" />
+              </label>
+              <button type="button" data-reset-prod="${escapeHtml(prod.id)}" class="reset-prod-btn mb-px px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 hover:bg-amber-400 text-slate-950 border border-amber-600">
+                Reset
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      const deleteList = document.getElementById('adminProductDeleteList');
+      deleteList.innerHTML = state.products.length
+        ? state.products.map(prod => `
+            <div class="rounded-xl border border-line bg-slatebg p-3 flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2 min-w-0">
+                ${getProductLogo(prod)}
+                <span class="text-xs font-bold text-white truncate">${escapeHtml(prod.name)}</span>
+              </div>
+              <button type="button" data-delete-prod="${escapeHtml(prod.id)}" class="delete-prod-btn shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold border">
+                Hapus
+              </button>
+            </div>
+          `).join('')
+        : '<div class="rounded-xl border border-line bg-slatebg p-4 text-sm text-slate-500">Belum ada produk untuk dihapus.</div>';
+
+      deleteList.querySelectorAll('.delete-prod-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          state.products = state.products.filter(p => p.id !== btn.dataset.delProd);
+          const target = state.products.find(product => product.id === btn.dataset.deleteProd);
+          if (!target) return;
+          if (!window.confirm(`Hapus produk "${target.name}"? Tindakan ini tidak dapat dibatalkan.`)) return;
+
+          state.products = state.products.filter(product => product.id !== target.id);
           saveState();
           renderCategories();
           renderProducts();
           renderAdminProducts();
-          showToast('Produk dihapus.');
+          showToast(`${target.name} berhasil dihapus.`);
+        });
+      });
+
+      list.querySelectorAll('.sold-prod-input').forEach(input => {
+        input.addEventListener('input', () => {
+          const previousSold = Math.max(0, Number(input.dataset.beforeSold || 0));
+          const previousStock = Math.max(0, Number(input.dataset.beforeStock || 0));
+          const nextSold = Number(input.value);
+          if (!Number.isFinite(nextSold) || nextSold < 0) return;
+          const soldDifference = nextSold - previousSold;
+          const stockInput = list.querySelector(`[data-stock-prod="${input.dataset.soldProd}"]`);
+          if (stockInput) stockInput.value = String(Math.max(0, previousStock - soldDifference));
+        });
+      });
+
+      list.querySelectorAll('.reset-prod-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const target = state.products.find(p => p.id === btn.dataset.resetProd);
+          if (!target) return;
+          const confirmed = window.confirm(`Reset stok dan jumlah terjual untuk ${target.name} menjadi 0?`);
+          if (!confirmed) return;
+
+          target.stock = 0;
+          target.sold = 0;
+          saveState();
+          renderProducts();
+          renderAdminProducts();
+          showToast(`Stok dan penjualan ${target.name} direset ke 0.`);
         });
       });
     }
+
+    document.getElementById('saveProductStockBtn').addEventListener('click', () => {
+      if (!isAdminUnlocked) return;
+
+      const inputs = Array.from(document.querySelectorAll('#adminProductList input[type="number"]'));
+      const invalidInput = inputs.find(input => !input.checkValidity() || !Number.isSafeInteger(Number(input.value)));
+      if (invalidInput) {
+        invalidInput.reportValidity();
+        showToast('Masukkan jumlah stok dan terjual berupa bilangan bulat 0 atau lebih.');
+        return;
+      }
+
+      state.products.forEach(product => {
+        const soldInput = document.querySelector(`[data-sold-prod="${product.id}"]`);
+        const stockInput = document.querySelector(`[data-stock-prod="${product.id}"]`);
+        if (!soldInput || !stockInput) return;
+        product.sold = Number(soldInput.value);
+        product.stock = Number(stockInput.value);
+      });
+
+      saveState();
+      renderProducts();
+      renderAdminProducts();
+      showToast('Data stok dan penjualan berhasil disimpan.');
+    });
 
     function renderAdminWaInputs() {
       const wrap = document.getElementById('adminWaInputs');
@@ -976,6 +1663,7 @@
       renderBrand();
       renderCategories();
       renderProducts();
+      renderTestimonialProductOptions();
       renderTags();
       renderTestimonials();
       renderSocials();
@@ -1002,7 +1690,32 @@
       if (e.target.id === 'orderModal') closeOrderModal();
     });
 
-    document.getElementById('testiForm').addEventListener('submit', e => {
+    const testiPhotoInput = document.getElementById('testiPhoto');
+    const testiPhotoPreview = document.getElementById('testiPhotoPreview');
+    let testiPhotoPreviewUrl = '';
+
+    testiPhotoInput.addEventListener('change', () => {
+      if (testiPhotoPreviewUrl) URL.revokeObjectURL(testiPhotoPreviewUrl);
+      testiPhotoPreviewUrl = '';
+      testiPhotoPreview.classList.add('hidden');
+      testiPhotoPreview.removeAttribute('src');
+
+      const file = testiPhotoInput.files[0];
+      if (!file) return;
+      if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size > 10 * 1024 * 1024) {
+        testiPhotoInput.value = '';
+        showToast(file.size > 10 * 1024 * 1024
+          ? 'Ukuran foto maksimal 10 MB.'
+          : 'Pilih foto berformat JPG, PNG, atau WEBP.');
+        return;
+      }
+
+      testiPhotoPreviewUrl = URL.createObjectURL(file);
+      testiPhotoPreview.src = testiPhotoPreviewUrl;
+      testiPhotoPreview.classList.remove('hidden');
+    });
+
+    document.getElementById('testiForm').addEventListener('submit', async e => {
       e.preventDefault();
       const author = document.getElementById('testiAuthor').value.trim();
       const product = document.getElementById('testiProduct').value.trim();
@@ -1010,37 +1723,81 @@
       const comment = document.getElementById('testiComment').value.trim();
       if (!author || !product || !comment) return;
 
-      if (!state.tags.includes(tag)) {
-        state.tags.push(tag);
+      let photo = '';
+      try {
+        const file = testiPhotoInput.files[0];
+        if (file) photo = await compressTestimonialPhoto(file);
+      } catch (error) {
+        showToast(error.message || 'Foto tidak dapat diproses.');
+        return;
       }
 
-      state.testimonials.unshift({
+      const tagWasAdded = !state.tags.includes(tag);
+      if (tagWasAdded) state.tags.push(tag);
+
+      const testimonial = {
         id: 't_' + Date.now(),
         author,
         product,
         tag,
         comment,
+        photo,
         time: 'Baru saja'
-      });
+      };
+      state.testimonials.unshift(testimonial);
+
+      if (!saveState()) {
+        state.testimonials = state.testimonials.filter(item => item.id !== testimonial.id);
+        if (tagWasAdded) state.tags = state.tags.filter(item => item !== tag);
+        showToast('Tidak dapat menyimpan testimoni. Ruang penyimpanan browser mungkin penuh.');
+        return;
+      }
 
       activeTag = '#Semua';
-      saveState();
       e.target.reset();
+      if (testiPhotoPreviewUrl) URL.revokeObjectURL(testiPhotoPreviewUrl);
+      testiPhotoPreviewUrl = '';
+      testiPhotoPreview.removeAttribute('src');
+      testiPhotoPreview.classList.add('hidden');
       document.getElementById('testiTag').value = '#ProsesKilat';
       renderTags();
       renderTestimonials();
       showToast('Testimoni berhasil ditambahkan!');
     });
 
-    // Admin access via Ctrl+Shift+A, ?admin=1, or footer Admin button
+    function openSideMenu() {
+      document.getElementById('sideMenu').classList.remove('-translate-x-full');
+      document.getElementById('menuBackdrop').classList.remove('hidden');
+      document.getElementById('menuToggleBtn').setAttribute('aria-expanded', 'true');
+    }
+
+    function closeSideMenu() {
+      document.getElementById('sideMenu').classList.add('-translate-x-full');
+      document.getElementById('menuBackdrop').classList.add('hidden');
+      document.getElementById('menuToggleBtn').setAttribute('aria-expanded', 'false');
+    }
+
+    // Navigation and admin access
     document.addEventListener('keydown', e => {
       if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'a') {
         e.preventDefault();
         openAdminAccess();
       }
+      if (e.key === 'Escape') {
+        closeSideMenu();
+      }
     });
 
-    document.getElementById('footerAdminBtn').addEventListener('click', openAdminAccess);
+    document.getElementById('menuToggleBtn').addEventListener('click', openSideMenu);
+    document.getElementById('menuCloseBtn').addEventListener('click', closeSideMenu);
+    document.getElementById('menuBackdrop').addEventListener('click', closeSideMenu);
+    document.querySelectorAll('[data-menu-link]').forEach(link => {
+      link.addEventListener('click', closeSideMenu);
+    });
+    document.getElementById('menuAdminBtn').addEventListener('click', () => {
+      closeSideMenu();
+      openAdminAccess();
+    });
     document.getElementById('closeAdminLoginBtn').addEventListener('click', closeAdminLogin);
     document.getElementById('closeAdminPanelBtn').addEventListener('click', closeAdminPanel);
 
@@ -1067,7 +1824,8 @@
       state.brand = {
         name: document.getElementById('cfgBrandName').value.trim() || 'Zhrs Project',
         tagline: document.getElementById('cfgTagline').value.trim() || 'APK & Akun Digital Premium Terpercaya',
-        storeStatus: document.getElementById('cfgStoreStatus').value,
+        openingTime: document.getElementById('cfgOpeningTime').value,
+        closingTime: document.getElementById('cfgClosingTime').value,
         bannerBadge: document.getElementById('cfgBannerBadge').value.trim() || 'Proses Cepat & Bergaransi',
         bannerTitle: document.getElementById('cfgBannerTitle').value.trim() || 'Belanja APK & Akun Premium Lebih Praktis di Zhrs Project',
         bannerDesc: document.getElementById('cfgBannerDesc').value.trim() || 'Pilih produk favorit, tentukan paket atau durasi, lalu order langsung ke salah satu dari 3 Admin WhatsApp aktif.'
@@ -1084,6 +1842,8 @@
       const category = document.getElementById('prodCategory').value.trim() || 'Umum';
       const pkgLabel = document.getElementById('prodPackage').value.trim() || '1 Bulan';
       const price = Number(document.getElementById('prodPrice').value || 0);
+      const stock = Math.max(0, Number(document.getElementById('prodStock').value || 0));
+      const sold = Math.max(0, Number(document.getElementById('prodSold').value || 0));
       const desc = document.getElementById('prodDesc').value.trim();
       if (!name) return;
 
@@ -1092,6 +1852,8 @@
         name,
         category,
         desc,
+        stock,
+        sold,
         packages: [{ label: pkgLabel, price }]
       });
 
@@ -1099,6 +1861,7 @@
       e.target.reset();
       renderCategories();
       renderProducts();
+      renderTestimonialProductOptions();
       renderAdminProducts();
       showToast('Produk baru ditambahkan.');
     });
@@ -1129,6 +1892,10 @@
     });
 
     renderAll();
+    window.setInterval(renderStoreStatus, 60000);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) renderStoreStatus();
+    });
 
     if (new URLSearchParams(window.location.search).get('admin') === '1') {
       openAdminAccess();
